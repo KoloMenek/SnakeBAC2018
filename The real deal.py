@@ -18,7 +18,8 @@ pygame.display.set_caption('Snake')
 ###COLORS
 black = (0,0,0)
 white = (255,255,255)
-green = (21, 47, 0)
+green = (15, 75, 4)
+Green_light = (31, 133, 11)
 ###COLORS
 ###TIME
 clock = pygame.time.Clock()
@@ -36,7 +37,7 @@ points_width = 10
 
 def scoreboard(count): ###Fonction qui compte le nombre de points
     font = pygame.font.SysFont (None, 40)
-    text = font.render("Points: "+str(count), True, black )
+    text = font.render("Points: "+str(count), True, Green_light)
     gameDisplay.blit(text,(0,0))
 
 
