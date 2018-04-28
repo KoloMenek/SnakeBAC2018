@@ -104,7 +104,7 @@ def game_start_screen(): ###Fonction qui fait le Menu quand on allume le jeu
 
 
         pygame.display.update()
-        clock.tick(15)
+        clock.tick(8)
 
 def game_loop(): ###Fonction qui est la base et la logique du jeu
 
@@ -131,19 +131,19 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT and direction != 'right':
                     y_change = 0
-                    x_change = -5 - 1 * sqrt(sqrt(score))
+                    x_change = -40
                     direction = 'left'
                 elif event.key == pygame.K_RIGHT and direction != 'left':
                     y_change = 0
-                    x_change = 5 + 1 * sqrt(sqrt(score))
+                    x_change = 40
                     direction = 'right'
                 elif event.key == pygame.K_UP and direction !='down':
                     x_change = 0
-                    y_change = -5 - 1 * sqrt(sqrt(score))
+                    y_change = -40
                     direction = 'up'
                 elif event.key == pygame.K_DOWN and direction !='up':
                     x_change = 0
-                    y_change = 5 + 1 * sqrt(sqrt(score))
+                    y_change = 40
                     direction ='down'
             
                 
@@ -174,12 +174,13 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu
         if y < posy_start + points_width and y + snake_width > posy_start and x < posx_start + points_width and x + snake_width > posx_start:
             posx_start = random.randrange(30,display_width - points_width-20)
             posy_start = random.randrange(30,display_height-30)
-            score = score + 1
-            snakeLength +=8
+            score += 1
+            snakeLength +=1
         
 
         pygame.display.update()
-        clock.tick(60)
+        clock.tick(int(8 + sqrt(sqrt(score))))
+
 game_start_screen()
 game_loop()
 pygame.quit()
