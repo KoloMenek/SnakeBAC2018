@@ -4,49 +4,61 @@ import time
 import random
 from math import sqrt
 pygame.init()
-###IMPORTS
+pygame.mixer.init()
 ###DISPLAY
 display_width = 1280
 display_height = 960
-###DISPLAY
-###MUSIC
-pygame.mixer.music.load("son.wav")
-pygame.mixer.music.play()
-###MUSIC
 gameDisplay = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Snake')
+###Sounds
+pygame.mixer.music.load("son.wav")
+pygame.mixer.music.play(-1)
+death_sound = pygame.mixer.Sound("death.wav")
 ###COLORS
 black = (0,0,0)
-white = (255,255,255)
 green = (15, 75, 4)
+white = (0,0,0)
 Green_light = (31, 133, 11)
-###COLORS
 ###TIME
 clock = pygame.time.Clock()
-###TIME
 ###IMAGES
 background = pygame.image.load('background.png')
 snakeImg = pygame.image.load('head.jpg')
 pointImg = pygame.image.load('point.jpg')
 corpsImg = pygame.image.load('body.jpg')
-###IMAGES
 ###VARIABLES
 snake_width = 40 
 points_width = 10
-###VARIABLES
+best_score = 0
+
+
+
+
+
+def affiche_best_score(best):
+    font = pygame.font.SysFont (None, 40)
+    text = font.render("Votre meilleur score: "+str(best), True, Green_light)
+    gameDisplay.blit(text,(0,0))
 
 def scoreboard(count): ###Fonction qui compte le nombre de points
     font = pygame.font.SysFont (None, 40)
     text = font.render("Points: "+str(count), True, Green_light)
-    gameDisplay.blit(text,(0,0))
+    gameDisplay.blit(text,(0,30))
 
 
 def points(posx,posy): ###Fonction qui créer les points
     gameDisplay.blit(pointImg, (posx,posy))
 
 
-def crash(): ###Fonction qui stop le jeu quand on "crash" en écrivant le "vous avez perdu"
-    message_display("Vous avez perdu!")
+def crash(score): ###Fonction qui stop le jeu quand on "crash" en écrivant le "vous avez perdu"
+    message_display("Vous avez perdu! Votre score: "+str(score))
+    pygame.display.update()
+    pygame.mixer.Sound.play(death_sound)
+    pygame.mixer.music.pause()
+    time.sleep(2.5)
+    pygame.mixer.music.unpause()
+    game_start_screen()
+
 
 
 def text_objects(text,font): ###Fonction qui créer une surface de text pour permettre la deuxième fonction message_display()
@@ -55,14 +67,12 @@ def text_objects(text,font): ###Fonction qui créer une surface de text pour per
 
 
 
-def message_display(text): ###Fonction qui permet à crash() d'écrire le message et de relancer le jeu 
+def message_display(text): ###Fonction qui permet à crash() d'écrire le message 
     LargeText = pygame.font.Font("freesansbold.ttf",50)
     TextSurface, TextRectangle = text_objects(text, LargeText)
     TextRectangle.center = ((display_width*0.5),(display_height*0.5))
     gameDisplay.blit(TextSurface,TextRectangle)
-    pygame.display.update()
-    time.sleep(5)
-    game_start_screen()
+
 
 
 
@@ -71,10 +81,16 @@ def snake(snakeLength,List): ###Positionne le snake sur l'écran après avoir é
     gameDisplay.blit(snakeImg, (List[-1][0],List[-1][1]))
     for XandY in List[:-1]:
         gameDisplay.blit(corpsImg, (XandY[0],XandY[1],snake_width,snake_width))
+
+
+
 def game_start_screen(): ###Fonction qui fait le Menu quand on allume le jeu
+    global best_score
     intro = True
     music_play = True
     pressed = False
+    gameDisplay.blit(background, (0,0))
+    affiche_best_score(best_score)
     while intro:
         event = pygame.event.poll()
         if event.type == pygame.NOEVENT:
@@ -83,11 +99,11 @@ def game_start_screen(): ###Fonction qui fait le Menu quand on allume le jeu
         if event.type == pygame.QUIT:
             pygame.quit()
             quit()
-        gameDisplay.blit(background, (0,0))
         mouse = pygame.mouse.get_pos()
-
+        
+        
         if event.type == pygame.MOUSEBUTTONDOWN and pressed == False:
-            if 400 > mouse[0] > 0 and 960 > mouse[1] > 900 and event.button == 1 and music_play == True:
+            if 400 > mouse[0] > 0 and 960 > mouse[1] > 900 and event.button == 1 and music_play == True:   ###Gestion des boutons
                 pygame.mixer.music.pause()
                 music_play = False
             elif 400 > mouse[0] > 0 and 960 > mouse[1] > 900 and event.button == 1 and music_play == False:
@@ -104,12 +120,13 @@ def game_start_screen(): ###Fonction qui fait le Menu quand on allume le jeu
 
 
         pygame.display.update()
-        clock.tick(8)
+        clock.tick(60)
 
 def game_loop(): ###Fonction qui est la base et la logique du jeu
-
+    global best_score
     x =  (display_width * 0.5)
     y = (display_height * 0.5)
+    clock.tick(8)
     List=[]
     snakeLength = 1
     x_change = 0
@@ -118,6 +135,7 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu
     posy_start = random.randrange(30,display_height-30)
     gameExit = False
     direction = 'start'
+
     score = 0
     
 
@@ -163,14 +181,18 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu
             del List[0]
         for partie in List[:-1]:
             if partie == snakeHead:
-                crash()
+                crash(score)
 
         snake(snakeLength,List)
-
+        affiche_best_score(best_score)
         scoreboard(score)
         points(posx_start,posy_start)
+        
+        if best_score < score:
+            best_score = score
+
         if x > display_width - snake_width or x < 0 or y > display_height - snake_width or y < 0:
-            crash()
+            crash(score)
         if y < posy_start + points_width and y + snake_width > posy_start and x < posx_start + points_width and x + snake_width > posx_start:
             posx_start = random.randrange(30,display_width - points_width-20)
             posy_start = random.randrange(30,display_height-30)
@@ -179,7 +201,7 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu
         
 
         pygame.display.update()
-        clock.tick(int(8 + sqrt(sqrt(score))))
+        clock.tick(int(8 + sqrt(score)))
 
 game_start_screen()
 game_loop()
