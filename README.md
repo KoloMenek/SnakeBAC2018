@@ -18,3 +18,7 @@ My project's progress :
 First, the game looked like this. But that was before I used another mechanic of making the snake be a snake.
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%202.png)
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%203.png)
+
+But after adding new features, I finally managed to do something that looked like the snake in the background image.
+![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%204.png)
+![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%205.png)
