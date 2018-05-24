@@ -19,6 +19,6 @@ First, the game looked like this. But that was before I used another mechanic of
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%202.png)
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%203.png)
 
-But after adding new features, I finally managed to do something that looked like the snake in the background image.
+But after adding new features like the record of the game, the record of the session or even the snake's mechanics to make it look like a real snake. The game looked like this and I am very Proud of it.
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%204.png)
 ![SnakeBAC2018 screenshot](https://raw.githubusercontent.com/KoloMenek/SnakeBAC2018/master/screenshots/Image%205.png)
