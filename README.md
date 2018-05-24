@@ -9,7 +9,8 @@ I used Github as a directory that is easily accessible by people on the internet
 
 
 Setup:
-In order to run the game, download all the game folder. Then, you will need to install the modules that are needed to run the game. to do this, you will need to download requirements.txt and type this command in the command prompt : "pip install -r requirements.txt"
+In order to run the game, download the game folder. Then, you will need to install the modules that are needed to run the game. to do this, you will need to download requirements.txt and type this command in the command prompt : "pip install -r requirements.txt"
+Now, you can run and enjoy the game :)
 
 If you want to help me improve the game, feel free to suggest new things as you can create new pulls and share them with me.
 
