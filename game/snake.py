@@ -34,8 +34,10 @@ best_score = 0
 highest_score1 = open("record_book.txt","r")
 var = highest_score1.read()
 highest_score1.close()
-highest_score = int(var) if var.isdigit() else 0
-
+if var.isdigit():
+    highest_score = int(var)
+else:
+    highest_score = 0
 
 def record_book(higher_score): ###Fonction qui affiche le record du jeu
     font = pygame.font.SysFont (None, 40)
