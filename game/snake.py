@@ -3,6 +3,7 @@ import pygame
 import time
 import random
 from math import sqrt
+import sys
 pygame.init()
 pygame.mixer.init()
 ###DISPLAY
@@ -102,7 +103,7 @@ def game_start_screen(): ###Fonction menu du jeu
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
                 break
         
             if event.type == pygame.MOUSEBUTTONDOWN and pressed == False:
@@ -143,7 +144,7 @@ def game_loop(): ###Fonction qui est la base et la logique du jeu Tout se passe 
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 pygame.quit()
-                quit()
+                sys.exit()
                 break
 
             ############################ Déplacement du snake
